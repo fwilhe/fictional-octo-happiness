@@ -1,0 +1,21 @@
+name: CI
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run a multi-line script
+      run: |
+        git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
+        cd image-specs
+        sudo make raspi_4_trixie.img
+    - uses: actions/upload-artifact@v4
+      with:
+        name: raspi_4_trixie
+        path: image-specs/raspi_4_trixie*
