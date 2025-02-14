@@ -12,6 +12,9 @@ jobs:
     - uses: actions/checkout@v4
     - name: Run a multi-line script
       run: |
+        sudo apt-get update -q
+        sudo apt-get install -yq vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3 zerofree
+        sudo apt-get install -yq fakemachine
         git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
         cd image-specs
         sudo make raspi_4_trixie.img
